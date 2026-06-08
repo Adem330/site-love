@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تحبني؟ ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink-light:#ffb3c6;--pink:#ff69b4;--pink-deep:#e91e8c;
+  --red:#e8274b;--red-dark:#c0143c;--cream:#fff0f5;
+  --shadow:rgba(233,30,140,.3);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Tajawal',sans-serif;
+  background:linear-gradient(135deg,#ffe0ec 0%,#ffc2d4 40%,#ffb3c6 70%,#ff85a1 100%);
+  min-height:100vh;overflow-x:hidden;position:relative;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse at 20% 20%,rgba(255,105,180,.35) 0%,transparent 55%),
+             radial-gradient(ellipse at 80% 80%,rgba(232,39,75,.3) 0%,transparent 55%),
+             radial-gradient(ellipse at 60% 10%,rgba(255,179,198,.4) 0%,transparent 45%);
+  pointer-events:none;z-index:0;
+}
+#hearts-bg{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.bg-heart{
+  position:absolute;bottom:-60px;font-size:1.4rem;
+  animation:floatUp linear infinite;opacity:0;
+  filter:drop-shadow(0 0 4px rgba(255,100,150,.5));
+}
+@keyframes floatUp{
+  0%{transform:translateY(0) rotate(0deg) scale(1);opacity:0}
+  10%{opacity:.75}90%{opacity:.4}
+  100%{transform:translateY(-110vh) rotate(25deg) scale(.6);opacity:0}
+}
+#music-btn{
+  position:fixed;top:16px;left:16px;z-index:100;
+  background:rgba(255,255,255,.85);border:2px solid var(--pink);
+  border-radius:50px;padding:8px 18px;font-family:'Tajawal',sans-serif;
+  font-size:.95rem;font-weight:700;color:var(--pink-deep);cursor:pointer;
+  backdrop-filter:blur(6px);transition:all .3s;
+  box-shadow:0 4px 16px var(--shadow);
+}
+#music-btn:hover{background:var(--pink);color:#fff;transform:scale(1.05)}
+#card{
+  position:relative;z-index:10;
+  background:rgba(255,255,255,.78);backdrop-filter:blur(18px);
+  border-radius:32px;padding:40px 40px 38px;max-width:480px;width:92%;
+  text-align:center;
+  box-shadow:0 8px 40px rgba(233,30,140,.22),0 0 0 1px rgba(255,150,180,.3) inset;
+}
+#bear-container{
+  position:relative;display:inline-block;
+  margin-bottom:20px;cursor:default;user-select:none;
+}
+#bear-svg{
+  width:200px;height:200px;display:block;margin:0 auto;
+  filter:drop-shadow(0 8px 24px rgba(160,80,60,.22));
+  transition:transform .3s;
+  transform-origin:50% 90%;
+}
+#bear-svg.shake{animation:bearShake .5s cubic-bezier(.36,.07,.19,.97)}
+#bear-svg.jump{animation:bearJump .65s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes bearShake{
+  0%,100%{transform:translateX(0) rotate(0)}
+  15%{transform:translateX(-9px) rotate(-7deg)}
+  30%{transform:translateX(9px) rotate(7deg)}
+  45%{transform:translateX(-6px) rotate(-4deg)}
+  60%{transform:translateX(6px) rotate(4deg)}
+  75%{transform:translateX(-3px) rotate(-2deg)}
+  90%{transform:translateX(3px) rotate(2deg)}
+}
+@keyframes bearJump{
+  0%{transform:translateY(0) scale(1) rotate(0)}
+  25%{transform:translateY(-38px) scale(1.12) rotate(-6deg)}
+  50%{transform:translateY(-52px) scale(1.18) rotate(6deg)}
+  70%{transform:translateY(-22px) scale(1.08) rotate(-2deg)}
+  85%{transform:translateY(-8px) scale(1.04) rotate(1deg)}
+  100%{transform:translateY(0) scale(1.05) rotate(0)}
+}
+/* Bear part animations */
+#bear-brow-l,#bear-brow-r{transition:all .4s cubic-bezier(.34,1.56,.64,1);transform-origin:center}
+#bear-mouth{transition:d .4s}
+#bear-blush-l,#bear-blush-r{transition:opacity .4s}
+#tear-l,#tear-r{opacity:0;transition:opacity .3s}
+#heart-l,#heart-r,#heart-t{opacity:0;transform:scale(0);transition:opacity .4s,transform .4s cubic-bezier(.34,1.56,.64,1)}
+.bear-eye-shine{animation:eyeShine 3s ease-in-out infinite}
+@keyframes eyeShine{0%,80%,100%{opacity:1}85%{opacity:0}}
+#tear-l.show,#tear-r.show{opacity:1;animation:tearDrop 1.5s ease-in infinite .2s}
+#tear-r.show{animation-delay:.5s}
+@keyframes tearDrop{
+  0%{transform:translateY(0);opacity:0}
+  20%{opacity:1}
+  100%{transform:translateY(18px);opacity:0}
+}
+#heart-l.show,#heart-r.show,#heart-t.show{opacity:1;transform:scale(1);animation:heartPop .5s cubic-bezier(.34,1.56,.64,1) forwards,heartFloat 1.8s ease-in-out .5s infinite}
+@keyframes heartPop{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1) rotate(0)}}
+@keyframes heartFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.1)}}
+/* tilt on sad */
+#bear-svg.sad-tilt{animation:sadTilt .4s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes sadTilt{to{transform:rotate(-8deg) translateX(-4px) translateY(3px)}}
+#bear-svg.happy-state{animation:happySpin .6s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes happySpin{0%{transform:scale(1)}50%{transform:scale(1.15) rotate(5deg)}100%{transform:scale(1.05) rotate(0)}}
+
+#question{
+  font-size:2rem;font-weight:900;color:var(--red);
+  margin-bottom:24px;text-shadow:0 2px 8px rgba(200,20,60,.18);
+}
+#btns{display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap}
+.btn{
+  font-family:'Tajawal',sans-serif;font-weight:800;border:none;
+  border-radius:50px;cursor:pointer;white-space:nowrap;line-height:1.2;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),font-size .35s,box-shadow .25s,padding .35s;
+}
+#yes-btn{
+  font-size:1.15rem;padding:14px 32px;
+  background:linear-gradient(135deg,var(--pink-deep),var(--red));
+  color:#fff;box-shadow:0 6px 24px rgba(233,30,140,.4);
+}
+#yes-btn:hover{transform:scale(1.08);box-shadow:0 10px 30px rgba(233,30,140,.55)}
+#no-btn{
+  font-size:1.15rem;padding:14px 28px;
+  background:linear-gradient(135deg,#b0b0b0,#888);
+  color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+#sub-msg{
+  font-size:1.1rem;font-weight:700;color:var(--pink-deep);
+  margin-top:18px;min-height:1.6em;transition:opacity .3s;
+}
+.sad-burst{position:fixed;font-size:1.8rem;pointer-events:none;z-index:200;animation:sadFly 1.2s ease-out forwards}
+@keyframes sadFly{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(.4)}}
+.confetti{position:fixed;width:10px;height:10px;border-radius:2px;pointer-events:none;z-index:300;animation:confettiFall var(--dur) ease-in forwards}
+@keyframes confettiFall{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(var(--cx),var(--cy)) rotate(720deg);opacity:0}}
+.heart-burst{position:fixed;font-size:2rem;pointer-events:none;z-index:300;animation:heartBurst 1.4s ease-out forwards}
+@keyframes heartBurst{0%{opacity:1;transform:translate(0,0) scale(1)}60%{opacity:.9}100%{opacity:0;transform:translate(var(--hx),var(--hy)) scale(1.5)}}
+#final-screen{
+  display:none;position:fixed;inset:0;z-index:400;
+  background:linear-gradient(135deg,#ff1a6e 0%,#ff6fa8 50%,#ffb3ce 100%);
+  flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:32px;
+}
+#final-screen.show{display:flex;animation:fadeInScale .8s cubic-bezier(.34,1.56,.64,1)}
+@keyframes fadeInScale{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+#final-bear-svg{width:180px;height:180px;animation:finalBounce 1s cubic-bezier(.34,1.56,.64,1) forwards;filter:drop-shadow(0 10px 30px rgba(0,0,0,.2))}
+@keyframes finalBounce{0%{transform:scale(0) rotate(-20deg);opacity:0}60%{transform:scale(1.2) rotate(8deg);opacity:1}80%{transform:scale(.95) rotate(-3deg)}100%{transform:scale(1.05) rotate(0);opacity:1}}
+#final-msg{
+  background:rgba(255,255,255,.25);backdrop-filter:blur(12px);
+  border-radius:24px;padding:28px 36px;margin-top:20px;max-width:400px;
+  border:2px solid rgba(255,255,255,.4);
+  animation:slideUp .9s .4s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+#final-msg p{font-size:1.2rem;font-weight:700;color:#fff;line-height:2;text-shadow:0 2px 8px rgba(150,0,50,.3)}
+#final-msg .big-line{font-size:1.55rem;font-weight:900;margin-bottom:4px}
+@media(max-width:480px){
+  #card{padding:32px 20px 28px}
+  #question{font-size:1.55rem}
+  #bear-svg,#final-bear-svg{width:160px;height:160px}
+  #final-msg p{font-size:1rem}
+  #final-msg .big-line{font-size:1.25rem}
+}
+</style>
+</head>
+<body>
+<div id="hearts-bg"></div>
+<button id="music-btn" onclick="toggleMusic()">🎵 موسيقى ON</button>
+
+<div id="card">
+  <div id="bear-container">
+    <!-- KAWAII TEDDY BEAR SVG -->
+    <svg id="bear-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="bodyGrad" cx="45%" cy="40%" r="55%">
+          <stop offset="0%" stop-color="#d4956a"/>
+          <stop offset="100%" stop-color="#a0622e"/>
+        </radialGradient>
+        <radialGradient id="faceGrad" cx="45%" cy="38%" r="52%">
+          <stop offset="0%" stop-color="#e8ab7a"/>
+          <stop offset="100%" stop-color="#c07040"/>
+        </radialGradient>
+        <radialGradient id="bellyGrad" cx="50%" cy="40%" r="55%">
+          <stop offset="0%" stop-color="#f5d4b0"/>
+          <stop offset="100%" stop-color="#e0b080"/>
+        </radialGradient>
+        <radialGradient id="earInnerGrad" cx="50%" cy="50%" r="55%">
+          <stop offset="0%" stop-color="#f0b090"/>
+          <stop offset="100%" stop-color="#d08050"/>
+        </radialGradient>
+        <radialGradient id="eyeGrad" cx="35%" cy="30%" r="60%">
+          <stop offset="0%" stop-color="#5a3010"/>
+          <stop offset="100%" stop-color="#2a1208"/>
+        </radialGradient>
+        <filter id="softShadow" x="-10%" y="-5%" width="120%" height="120%">
+          <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(120,60,20,.25)"/>
+        </filter>
+      </defs>
+
+      <!-- BODY -->
+      <ellipse cx="100" cy="148" rx="44" ry="38" fill="url(#bodyGrad)" filter="url(#softShadow)"/>
+      <!-- belly -->
+      <ellipse cx="100" cy="152" rx="26" ry="22" fill="url(#bellyGrad)"/>
+
+      <!-- ARMS -->
+      <ellipse cx="58" cy="148" rx="15" ry="11" fill="#b87040" transform="rotate(-20,58,148)"/>
+      <ellipse cx="142" cy="148" rx="15" ry="11" fill="#b87040" transform="rotate(20,142,148)"/>
+      <!-- paw pads -->
+      <ellipse cx="46" cy="157" rx="9" ry="7" fill="#d49060" transform="rotate(-15,46,157)"/>
+      <ellipse cx="154" cy="157" rx="9" ry="7" fill="#d49060" transform="rotate(15,154,157)"/>
+
+      <!-- LEGS -->
+      <ellipse cx="78" cy="180" rx="18" ry="10" fill="#b07030"/>
+      <ellipse cx="122" cy="180" rx="18" ry="10" fill="#b07030"/>
+      <ellipse cx="78" cy="185" rx="14" ry="7" fill="#c98848"/>
+      <ellipse cx="122" cy="185" rx="14" ry="7" fill="#c98848"/>
+
+      <!-- EARS (outer) -->
+      <circle cx="68" cy="54" r="20" fill="url(#bodyGrad)"/>
+      <circle cx="132" cy="54" r="20" fill="url(#bodyGrad)"/>
+      <!-- Ears (inner) -->
+      <circle cx="68" cy="55" r="12" fill="url(#earInnerGrad)"/>
+      <circle cx="132" cy="55" r="12" fill="url(#earInnerGrad)"/>
+
+      <!-- HEAD -->
+      <circle cx="100" cy="95" r="54" fill="url(#faceGrad)" filter="url(#softShadow)"/>
+
+      <!-- MUZZLE -->
+      <ellipse cx="100" cy="116" rx="22" ry="15" fill="url(#bellyGrad)"/>
+
+      <!-- NOSE -->
+      <ellipse cx="100" cy="109" rx="9" ry="6" fill="#5a2a0a"/>
+      <ellipse cx="98" cy="107.5" rx="3" ry="2" fill="rgba(255,255,255,.35)"/>
+
+      <!-- MOUTH - happy default -->
+      <g id="mouth-happy">
+        <path d="M89 116 Q100 126 111 116" stroke="#5a2a0a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </g>
+      <!-- MOUTH - sad -->
+      <g id="mouth-sad" opacity="0">
+        <path d="M89 122 Q100 114 111 122" stroke="#5a2a0a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </g>
+      <!-- MOUTH - happy big (yes state) -->
+      <g id="mouth-happy-big" opacity="0">
+        <path d="M86 115 Q100 130 114 115" stroke="#5a2a0a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+        <path d="M88 116 Q100 128 112 116" fill="rgba(255,150,150,.4)" stroke="none"/>
+      </g>
+
+      <!-- EYES -->
+      <!-- Left eye -->
+      <g id="eye-left">
+        <circle cx="80" cy="88" r="12" fill="url(#eyeGrad)"/>
+        <circle cx="80" cy="88" r="8.5" fill="#1a0800"/>
+        <!-- shine -->
+        <circle cx="83.5" cy="84.5" r="3.2" fill="white" class="bear-eye-shine"/>
+        <circle cx="77.5" cy="90" r="1.5" fill="rgba(255,255,255,.5)"/>
+      </g>
+      <!-- Right eye -->
+      <g id="eye-right">
+        <circle cx="120" cy="88" r="12" fill="url(#eyeGrad)"/>
+        <circle cx="120" cy="88" r="8.5" fill="#1a0800"/>
+        <circle cx="123.5" cy="84.5" r="3.2" fill="white" class="bear-eye-shine"/>
+        <circle cx="117.5" cy="90" r="1.5" fill="rgba(255,255,255,.5)"/>
+      </g>
+
+      <!-- Puppy eyes overlay (sad) -->
+      <g id="puppy-eyes" opacity="0">
+        <!-- enlarged sad pupils -->
+        <circle cx="80" cy="89" r="9.5" fill="#0d0400"/>
+        <circle cx="120" cy="89" r="9.5" fill="#0d0400"/>
+        <circle cx="83" cy="85" r="4" fill="white"/>
+        <circle cx="123" cy="85" r="4" fill="white"/>
+        <!-- watery gloss -->
+        <ellipse cx="80" cy="95" rx="10" ry="5" fill="rgba(100,180,255,.25)"/>
+        <ellipse cx="120" cy="95" rx="10" ry="5" fill="rgba(100,180,255,.25)"/>
+      </g>
+
+      <!-- BROWS -->
+      <path id="bear-brow-l" d="M70 74 Q80 70 88 74" stroke="#5a2a0a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+      <path id="bear-brow-r" d="M112 74 Q120 70 130 74" stroke="#5a2a0a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+
+      <!-- BLUSH -->
+      <ellipse id="bear-blush-l" cx="62" cy="102" rx="12" ry="7" fill="rgba(255,120,150,.45)"/>
+      <ellipse id="bear-blush-r" cx="138" cy="102" rx="12" ry="7" fill="rgba(255,120,150,.45)"/>
+
+      <!-- TEARS -->
+      <ellipse id="tear-l" cx="73" cy="101" rx="4" ry="5" fill="rgba(120,190,255,.75)"/>
+      <ellipse id="tear-r" cx="127" cy="101" rx="4" ry="5" fill="rgba(120,190,255,.75)"/>
+
+      <!-- HEARTS (happy state) -->
+      <text id="heart-l" x="30" y="80" font-size="22" text-anchor="middle" transform-origin="30 80">❤️</text>
+      <text id="heart-r" x="170" y="80" font-size="22" text-anchor="middle" transform-origin="170 80">❤️</text>
+      <text id="heart-t" x="100" y="30" font-size="20" text-anchor="middle" transform-origin="100 30">💕</text>
+
+      <!-- Sparkles -->
+      <text x="18" y="105" font-size="14" opacity=".7" style="animation:sparklePop 2.2s ease-in-out infinite">✨</text>
+      <text x="168" y="65" font-size="12" opacity=".7" style="animation:sparklePop 2.6s ease-in-out .4s infinite">⭐</text>
+      <text x="22" y="65" font-size="11" opacity=".6" style="animation:sparklePop 1.9s ease-in-out .8s infinite">💫</text>
+    </svg>
+
+    <style>
+      @keyframes sparklePop{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.4)}}
+    </style>
+  </div>
+
+  <div id="question">تحبني؟ ❤️</div>
+  <div id="btns">
+    <button class="btn" id="yes-btn" onclick="onYes()">إييي ❤️</button>
+    <button class="btn" id="no-btn"  onclick="onNo()">لا 😒</button>
+  </div>
+  <div id="sub-msg"></div>
+</div>
+
+<!-- Final screen -->
+<div id="final-screen">
+  <!-- Happy bear on final screen -->
+  <svg id="final-bear-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="bG2" cx="45%" cy="40%" r="55%"><stop offset="0%" stop-color="#d4956a"/><stop offset="100%" stop-color="#a0622e"/></radialGradient>
+      <radialGradient id="fG2" cx="45%" cy="38%" r="52%"><stop offset="0%" stop-color="#e8ab7a"/><stop offset="100%" stop-color="#c07040"/></radialGradient>
+      <radialGradient id="blG2" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#f5d4b0"/><stop offset="100%" stop-color="#e0b080"/></radialGradient>
+    </defs>
+    <ellipse cx="100" cy="148" rx="44" ry="38" fill="url(#bG2)"/>
+    <ellipse cx="100" cy="152" rx="26" ry="22" fill="url(#blG2)"/>
+    <ellipse cx="58" cy="148" rx="15" ry="11" fill="#b87040" transform="rotate(-20,58,148)"/>
+    <ellipse cx="142" cy="148" rx="15" ry="11" fill="#b87040" transform="rotate(20,142,148)"/>
+    <ellipse cx="46" cy="157" rx="9" ry="7" fill="#d49060" transform="rotate(-15,46,157)"/>
+    <ellipse cx="154" cy="157" rx="9" ry="7" fill="#d49060" transform="rotate(15,154,157)"/>
+    <ellipse cx="78" cy="180" rx="18" ry="10" fill="#b07030"/>
+    <ellipse cx="122" cy="180" rx="18" ry="10" fill="#b07030"/>
+    <circle cx="68" cy="54" r="20" fill="url(#bG2)"/>
+    <circle cx="132" cy="54" r="20" fill="url(#bG2)"/>
+    <circle cx="68" cy="55" r="12" fill="#f0b090"/>
+    <circle cx="132" cy="55" r="12" fill="#f0b090"/>
+    <circle cx="100" cy="95" r="54" fill="url(#fG2)"/>
+    <ellipse cx="100" cy="116" rx="22" ry="15" fill="url(#blG2)"/>
+    <ellipse cx="100" cy="109" rx="9" ry="6" fill="#5a2a0a"/>
+    <ellipse cx="98" cy="107.5" rx="3" ry="2" fill="rgba(255,255,255,.35)"/>
+    <!-- big happy mouth -->
+    <path d="M85 114 Q100 131 115 114" stroke="#5a2a0a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+    <path d="M87 115 Q100 129 113 115" fill="rgba(255,150,150,.4)" stroke="none"/>
+    <!-- happy eyes with crescents -->
+    <path d="M70 88 Q80 78 90 88" stroke="#2a1208" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M110 88 Q120 78 130 88" stroke="#2a1208" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <!-- blush big -->
+    <ellipse cx="62" cy="102" rx="14" ry="8" fill="rgba(255,100,140,.5)"/>
+    <ellipse cx="138" cy="102" rx="14" ry="8" fill="rgba(255,100,140,.5)"/>
+    <!-- hearts around -->
+    <text x="22" y="72" font-size="20" style="animation:fhFloat 1.5s ease-in-out infinite">❤️</text>
+    <text x="164" y="72" font-size="20" style="animation:fhFloat 1.5s ease-in-out .4s infinite">❤️</text>
+    <text x="94" y="26" font-size="18" style="animation:fhFloat 1.5s ease-in-out .8s infinite">💕</text>
+    <text x="148" y="130" font-size="16" style="animation:fhFloat 1.5s ease-in-out .2s infinite">🩷</text>
+    <text x="22" y="130" font-size="16" style="animation:fhFloat 1.5s ease-in-out .6s infinite">💖</text>
+    <style>@keyframes fhFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}</style>
+  </svg>
+
+  <div id="final-msg">
+    <p class="big-line">😂😂 عرفت إلي إنتي تحبني ❤️</p>
+    <p>أما بصراحة...</p>
+    <p>إنتي أغلى إنسان في الدنيا 🌹</p>
+    <p>ربي يديمك في حياتي ❤️</p>
+  </div>
+</div>
+
+<script>
+let noCount=0,musicOn=false,audioCtx=null,musicNodes=[];
+const noMessages=["زيد ثبت شوية 😢","متأكد؟ 🥺","فكر مليح 😭","راهو قلبي باش يتكسر 💔","آخر كلمة؟ 😔","ياخي بالحق؟ 😭"];
+const heartEmojis=['❤️','🩷','💕','💖','💗','💓','💞','🌹'];
+const heartsBg=document.getElementById('hearts-bg');
+
+// ── Floating background hearts
+function spawnBgHeart(){
+  const h=document.createElement('span');
+  h.className='bg-heart';
+  h.textContent=heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
+  h.style.left=Math.random()*100+'vw';
+  const dur=6+Math.random()*8,size=.8+Math.random()*1.4;
+  h.style.fontSize=size+'rem';
+  h.style.animationDuration=dur+'s';
+  h.style.animationDelay=Math.random()*dur+'s';
+  heartsBg.appendChild(h);
+  setTimeout(()=>h.remove(),(dur+parseFloat(h.style.animationDelay))*1000+500);
+}
+setInterval(spawnBgHeart,600);
+for(let i=0;i<14;i++) spawnBgHeart();
+
+// ── Bear state helpers
+function setBearHappy(){
+  const svg=document.getElementById('bear-svg');
+  svg.classList.remove('sad-tilt');
+  document.getElementById('mouth-happy').setAttribute('opacity','1');
+  document.getElementById('mouth-sad').setAttribute('opacity','0');
+  document.getElementById('mouth-happy-big').setAttribute('opacity','0');
+  document.getElementById('puppy-eyes').setAttribute('opacity','0');
+  document.getElementById('tear-l').classList.remove('show');
+  document.getElementById('tear-r').classList.remove('show');
+  document.getElementById('bear-brow-l').setAttribute('d','M70 74 Q80 70 88 74');
+  document.getElementById('bear-brow-r').setAttribute('d','M112 74 Q120 70 130 74');
+  document.getElementById('bear-blush-l').setAttribute('opacity','1');
+  document.getElementById('bear-blush-r').setAttribute('opacity','1');
+}
+
+function setBearSad(){
+  const svg=document.getElementById('bear-svg');
+  document.getElementById('mouth-happy').setAttribute('opacity','0');
+  document.getElementById('mouth-sad').setAttribute('opacity','1');
+  document.getElementById('mouth-happy-big').setAttribute('opacity','0');
+  // worried brows (angled inward)
+  document.getElementById('bear-brow-l').setAttribute('d','M70 72 Q79 78 88 72');
+  document.getElementById('bear-brow-r').setAttribute('d','M112 72 Q121 78 130 72');
+  document.getElementById('puppy-eyes').setAttribute('opacity','1');
+  document.getElementById('tear-l').classList.add('show');
+  document.getElementById('tear-r').classList.add('show');
+  document.getElementById('bear-blush-l').setAttribute('opacity','.5');
+  document.getElementById('bear-blush-r').setAttribute('opacity','.5');
+  svg.classList.add('sad-tilt');
+}
+
+function setBearVeryHappy(){
+  document.getElementById('mouth-happy').setAttribute('opacity','0');
+  document.getElementById('mouth-sad').setAttribute('opacity','0');
+  document.getElementById('mouth-happy-big').setAttribute('opacity','1');
+  document.getElementById('puppy-eyes').setAttribute('opacity','0');
+  document.getElementById('tear-l').classList.remove('show');
+  document.getElementById('tear-r').classList.remove('show');
+  document.getElementById('bear-brow-l').setAttribute('d','M70 72 Q80 67 88 72');
+  document.getElementById('bear-brow-r').setAttribute('d','M112 72 Q120 67 130 72');
+  document.getElementById('bear-blush-l').setAttribute('opacity','1');
+  document.getElementById('bear-blush-r').setAttribute('opacity','1');
+  document.getElementById('heart-l').classList.add('show');
+  document.getElementById('heart-r').classList.add('show');
+  document.getElementById('heart-t').classList.add('show');
+}
+
+function shakeBear(){
+  const s=document.getElementById('bear-svg');
+  s.classList.remove('shake','sad-tilt');
+  void s.offsetWidth;
+  s.classList.add('shake');
+  s.addEventListener('animationend',()=>{s.classList.remove('shake');s.classList.add('sad-tilt')},{once:true});
+}
+
+function jumpBear(){
+  const s=document.getElementById('bear-svg');
+  s.classList.remove('sad-tilt','shake');
+  void s.offsetWidth;
+  s.classList.add('jump');
+}
+
+// ── Sad burst
+const sadEmojis=['😢','😭','💔','😔','🥺','😿'];
+function spawnSadBurst(cx,cy){
+  for(let i=0;i<8;i++){
+    const el=document.createElement('div');
+    el.className='sad-burst';
+    el.textContent=sadEmojis[Math.floor(Math.random()*sadEmojis.length)];
+    const angle=(Math.PI*2/8)*i+Math.random()*.4;
+    const dist=60+Math.random()*80;
+    el.style.left=cx+'px';el.style.top=cy+'px';
+    el.style.setProperty('--tx',Math.cos(angle)*dist+'px');
+    el.style.setProperty('--ty',Math.sin(angle)*dist+'px');
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),1300);
+  }
+}
+
+// ── Web Audio music
+function startMusic(){
+  if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  const ctx=audioCtx,master=ctx.createGain();
+  master.gain.value=.15;master.connect(ctx.destination);
+  const notes=[261.63,329.63,392,440,392,329.63,261.63,220];
+  const bpm=72,beat=60/bpm;
+  function playNote(freq,start,dur){
+    const osc=ctx.createOscillator(),gain=ctx.createGain();
+    osc.type='sine';osc.frequency.value=freq;
+    gain.gain.setValueAtTime(0,start);
+    gain.gain.linearRampToValueAtTime(.45,start+.05);
+    gain.gain.linearRampToValueAtTime(0,start+dur-.04);
+    osc.connect(gain);gain.connect(master);
+    osc.start(start);osc.stop(start+dur);
+    musicNodes.push(osc);
+  }
+  function scheduleLoop(offset){
+    notes.forEach((f,i)=>playNote(f,ctx.currentTime+offset+i*beat,beat*.85));
+    [329.63,392,493.88,523.25,493.88,392,329.63,293.66].forEach((f,i)=>
+      playNote(f,ctx.currentTime+offset+i*beat,beat*.75));
+  }
+  let t=0;
+  for(let b=0;b<40;b++){scheduleLoop(t);t+=notes.length*beat;}
+}
+function stopMusic(){
+  musicNodes.forEach(n=>{try{n.stop()}catch(e){}});
+  musicNodes=[];
+}
+function toggleMusic(){
+  musicOn=!musicOn;
+  const btn=document.getElementById('music-btn');
+  if(musicOn){startMusic();btn.textContent='🎵 موسيقى OFF';btn.style.background='var(--pink)';btn.style.color='#fff';}
+  else{stopMusic();btn.textContent='🎵 موسيقى ON';btn.style.background='';btn.style.color='';}
+}
+
+// ── No handler
+function onNo(){
+  noCount++;
+  if(noCount>noMessages.length) return;
+  const sub=document.getElementById('sub-msg');
+  sub.style.opacity=0;
+  setTimeout(()=>{sub.textContent=noMessages[noCount-1]||'';sub.style.opacity=1;},150);
+  const yb=document.getElementById('yes-btn'),nb=document.getElementById('no-btn');
+  yb.style.fontSize=(1.15+noCount*.22)+'rem';
+  yb.style.padding=(14+noCount*3)+'px '+(32+noCount*4)+'px';
+  nb.style.fontSize=Math.max(.5,1.15-noCount*.12)+'rem';
+  nb.style.padding=Math.max(3,14-noCount*1.5)+'px '+Math.max(6,28-noCount*2)+'px';
+  setBearSad();
+  shakeBear();
+  const r=nb.getBoundingClientRect();
+  spawnSadBurst(r.left+r.width/2,r.top+r.height/2);
+  if(noCount>=noMessages.length){
+    setTimeout(()=>{nb.style.opacity='0';nb.style.pointerEvents='none';},400);
+  }
+}
+
+// ── Yes handler
+const confettiColors=['#ff1a6e','#ff69b4','#ff85a1','#ffcc00','#fff','#ff3385','#e91e8c'];
+function launchConfetti(){
+  for(let i=0;i<120;i++){
+    const el=document.createElement('div');
+    el.className='confetti';
+    el.style.background=confettiColors[Math.floor(Math.random()*confettiColors.length)];
+    el.style.left=Math.random()*100+'vw';el.style.top='-20px';
+    el.style.setProperty('--cx',(Math.random()-.5)*300+'px');
+    el.style.setProperty('--cy',(80+Math.random()*120)+'vh');
+    el.style.setProperty('--dur',(1.2+Math.random()*1.8)+'s');
+    el.style.animationDelay=Math.random()*.8+'s';
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),3500);
+  }
+}
+function launchHeartExplosion(cx,cy){
+  for(let i=0;i<24;i++){
+    const el=document.createElement('div');
+    el.className='heart-burst';
+    el.textContent=['❤️','💕','💖','💗','💓','🩷','💞'][Math.floor(Math.random()*7)];
+    el.style.left=cx+'px';el.style.top=cy+'px';
+    const angle=(Math.PI*2/24)*i+Math.random()*.3,dist=80+Math.random()*160;
+    el.style.setProperty('--hx',Math.cos(angle)*dist+'px');
+    el.style.setProperty('--hy',Math.sin(angle)*dist+'px');
+    el.style.fontSize=(.8+Math.random()*1.5)+'rem';
+    el.style.animationDelay=Math.random()*.4+'s';
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),2200);
+  }
+}
+function onYes(){
+  setBearVeryHappy();
+  jumpBear();
+  const r=document.getElementById('yes-btn').getBoundingClientRect();
+  launchConfetti();
+  setTimeout(()=>launchHeartExplosion(window.innerWidth/2,window.innerHeight/2),200);
+  setTimeout(()=>launchHeartExplosion(r.left+r.width/2,r.top+r.height/2),500);
+  setTimeout(()=>launchHeartExplosion(window.innerWidth/2,window.innerHeight/3),800);
+  if(!musicOn){musicOn=true;startMusic();const b=document.getElementById('music-btn');b.textContent='🎵 موسيقى OFF';b.style.background='var(--pink)';b.style.color='#fff';}
+  setTimeout(()=>document.getElementById('final-screen').classList.add('show'),950);
+}
+</script>
+</body>
+</html>
